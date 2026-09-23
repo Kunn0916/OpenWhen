@@ -1,6 +1,7 @@
 (function(){
+  const HARDCODED_API_KEY = "AQ.Ab8RN6JnlyQ9rbjIOK8iCtgATBM_JVMghsapjm75eogcDaIyAQ";
+
   const LS_KEYS = {
-    apiKey: 'AQ.Ab8RN6JnlyQ9rbjIOK8iCtgATBM_JVMghsapjm75eogcDaIyAQ',
     vaultDate: 'ow_vault_date',
     opened: 'ow_opened_envelopes',
     cache: 'ow_letter_cache'
@@ -33,7 +34,7 @@
   }
   function setCache(map){ localStorage.setItem(LS_KEYS.cache, JSON.stringify(map)); }
 
-  function getApiKey(){ return localStorage.getItem(LS_KEYS.apiKey) || ''; }
+  function getApiKey(){ return HARDCODED_API_KEY; }
   function getVaultDate(){
     const v = localStorage.getItem(LS_KEYS.vaultDate);
     if(v) return new Date(v);
@@ -142,14 +143,6 @@
     }
 
     const key = getApiKey();
-    if(!key){
-      readerBody.innerHTML = `<div class="err">I don't have a Gemini API key saved yet, so I can't write this letter live. Add one in settings and try again.<br><button class="primary" id="openSettingsFromReader">Open settings</button></div>`;
-      $('#openSettingsFromReader').addEventListener('click', () => {
-        readerOverlay.classList.remove('show');
-        settingsOverlay.classList.add('show');
-      });
-      return;
-    }
 
     readerBody.innerHTML = `<div class="loading"><span class="dot"></span><span class="dot"></span><span class="dot"></span> writing something for you...</div>`;
 
@@ -210,7 +203,6 @@
 
   const settingsOverlay = $('#settingsOverlay');
   $('#settingsBtn').addEventListener('click', () => {
-    $('#apiKeyInput').value = getApiKey();
     const d = getVaultDate();
     const pad = n => String(n).padStart(2,'0');
     const local = `${d.getFullYear()}-${pad(d.getMonth()+1)}-${pad(d.getDate())}T${pad(d.getHours())}:${pad(d.getMinutes())}`;
@@ -221,9 +213,7 @@
   settingsOverlay.addEventListener('click', (e) => { if(e.target === settingsOverlay) settingsOverlay.classList.remove('show'); });
 
   $('#settingsSave').addEventListener('click', () => {
-    const key = $('#apiKeyInput').value.trim();
     const dateVal = $('#vaultDateInput').value;
-    if(key) localStorage.setItem(LS_KEYS.apiKey, key);
     if(dateVal) localStorage.setItem(LS_KEYS.vaultDate, new Date(dateVal).toISOString());
     settingsOverlay.classList.remove('show');
     renderDeck();
