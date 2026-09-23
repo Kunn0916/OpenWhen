@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Open When...</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@500;600;700&family=Quicksand:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<div class="wrap">
+  <header class="top">
+    <div class="gear" id="settingsBtn" title="Settings">&#9881;</div>
+    <div class="kicker">a small collection, for you</div>
+    <h1>Open When...</h1>
+    <p>Whenever you need me and I'm not there — open one of these instead. Pick whatever fits the moment.</p>
+  </header>
+
+  <div class="deck" id="deck"></div>
+
+  <footer>made with a lot of love, one envelope at a time</footer>
+</div>
+
+<!-- Reader Modal -->
+<div class="overlay" id="readerOverlay">
+  <div class="modal">
+    <button class="close" id="readerClose">&times;</button>
+    <h2 id="readerTitle"></h2>
+    <div id="readerBody" class="letter-body"></div>
+  </div>
+</div>
+
+<!-- Vault Locked Modal -->
+<div class="overlay" id="lockOverlay">
+  <div class="modal">
+    <button class="close" id="lockClose">&times;</button>
+    <h2>Not yet, love</h2>
+    <div class="letter-body" id="lockBody"></div>
+  </div>
+</div>
+
+<!-- Settings Modal -->
+<div class="overlay" id="settingsOverlay">
+  <div class="modal">
+    <button class="close" id="settingsClose">&times;</button>
+    <h2>Settings</h2>
+    <div class="field">
+      <label for="apiKeyInput">Gemini API key</label>
+      <input id="apiKeyInput" type="password" placeholder="Paste your key here" autocomplete="off">
+    </div>
+    <div class="field">
+      <label for="vaultDateInput">Vault unlock date &amp; time</label>
+      <input id="vaultDateInput" type="datetime-local">
+    </div>
+    <div class="field-row">
+      <button class="primary" id="settingsSave">Save</button>
+    </div>
+    <p class="hint">Your key is stored only in this browser (localStorage) and is only ever sent directly to Google's Gemini API. Get a free key at <a href="https://aistudio.google.com/apikey" target="_blank" rel="noopener">aistudio.google.com/apikey</a>.</p>
+  </div>
+</div>
+
+<script src="script.js"></script>
+</body>
+</html>
