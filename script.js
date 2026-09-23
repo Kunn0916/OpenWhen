@@ -42,7 +42,6 @@
     return d;
   }
 
-  // ---------- render deck ----------
   function renderDeck(){
     deck.innerHTML = '';
     const opened = getOpened();
@@ -67,7 +66,6 @@
     renderVaultCard();
   }
 
-  // ---------- vault ----------
   let vaultTimer = null;
   function renderVaultCard(){
     const card = document.createElement('div');
@@ -106,7 +104,7 @@
         el.textContent = 'unlocked';
         clearInterval(vaultTimer);
         if(!card.classList.contains('unlocked')){
-          renderDeck(); // re-render once to flip visual state
+          renderDeck();
         }
         return;
       }
@@ -126,7 +124,6 @@
     overlay.classList.add('show');
   }
 
-  // ---------- reader modal + Gemini ----------
   const readerOverlay = $('#readerOverlay');
   const readerTitle = $('#readerTitle');
   const readerBody = $('#readerBody');
@@ -185,7 +182,6 @@
       body: JSON.stringify(body)
     });
     if(!res.ok){
-      const errText = await res.text().catch(()=> '');
       throw new Error(`request failed (${res.status})`);
     }
     const data = await res.json();
@@ -194,7 +190,6 @@
     return text;
   }
 
-  // ---------- modal chrome ----------
   $('#readerClose').addEventListener('click', () => readerOverlay.classList.remove('show'));
   readerOverlay.addEventListener('click', (e) => { if(e.target === readerOverlay) readerOverlay.classList.remove('show'); });
 
